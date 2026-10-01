@@ -1014,6 +1014,40 @@ td.m { color: var(--accent); }
 }
 
 
+/* =====================================================================
+   Long-page view (screen only): one continuous page, no floating slide
+   cards — sections sit edge to edge, divided by a clean hairline.
+   Print keeps the one-slide-per-page layout below.
+   ===================================================================== */
+@media screen {
+  html, body { background: #f7fbfd; }
+  .deck { gap: 0; padding-block: 0 56px; padding-inline: 0; }
+  .lang-set { gap: 0; }
+  .slide {
+    outline: 0; box-shadow: none; border-radius: 0;
+    background: transparent;
+  }
+  .slide:not(.cover) { background: transparent; }
+  .slide + .slide { border-block-start: 1px solid #cfe1e8; }
+  /* the per-slide footer band stays, minus its coloured edge, so only one line divides sections */
+  .foot { border-block-start-color: transparent; }
+  .bsi-band { background: transparent; border-block-start-color: transparent; }
+  .bsi-band::after { display: none; }
+  /* language switch: pinned top-right while scrolling */
+  .lang-nav {
+    position: sticky; inset-block-start: 0; z-index: 30;
+    margin-block-end: 0; padding-block: 10px; padding-inline: 16px;
+    width: min(1280px, 100%); pointer-events: none;
+  }
+  .lang-nav a, .lang-nav span { pointer-events: auto; }
+  .lang-nav { color: var(--muted); }
+  .lang-divider {
+    margin-block: 0; padding-block: 28px; width: min(1280px, 100%);
+    border-block-start: 1px solid #cfe1e8;
+  }
+  .lang-divider a { color: var(--accent); }
+}
+
 /* ---------- Print: one section per landscape page ---------- */
 @page { size: 1280px 720px; margin: 0; }
 @media print {
@@ -1122,7 +1156,6 @@ td.m { color: var(--accent); }
           </tbody>
         </table>
       </div>
-      <p class="verify rule-top"><b>Data care:</b> follow BSI data policy. Never paste nasabah personal data (names, account numbers, NIK, phone) — use anonymised or sample data.</p>
     </div>
   </div>
   <div class="foot"><span class="f-l"><span class="f-brand" aria-hidden="true"><span class="lg lg-ms"></span><span class="ms-word">Microsoft</span><span class="f-sep"></span><span class="lg lg-copilot"></span><span class="f-sep"></span><span class="lg lg-bsi"></span></span><span>Copilot for Sales · BSI Selling Skill Program</span></span><span class="num">2 / 11</span></div>
@@ -1878,7 +1911,6 @@ Headings 1–6. Show the objections as a table: Objection · Acknowledge · Resp
           </tbody>
         </table>
       </div>
-      <p class="verify rule-top"><b>Jaga data:</b> ikuti kebijakan data BSI. Jangan pernah menempelkan data pribadi nasabah (nama, nomor rekening, NIK, nomor telepon) — gunakan data anonim atau data contoh.</p>
     </div>
   </div>
   <div class="foot"><span class="f-l"><span class="f-brand" aria-hidden="true"><span class="lg lg-ms"></span><span class="ms-word">Microsoft</span><span class="f-sep"></span><span class="lg lg-copilot"></span><span class="f-sep"></span><span class="lg lg-bsi"></span></span><span>Copilot untuk Sales · Program Selling Skill BSI</span></span><span class="num">2 / 11</span></div>
