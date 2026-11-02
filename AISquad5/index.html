@@ -974,13 +974,13 @@
     <div class="table-wrap lc"><table>
       <thead><tr><th style="width:9rem">Use case</th><th style="width:13rem">Part of the process</th><th style="width:10rem">Harness</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td>ARGUS</td><td>Analysis (steps 1–3): ARGUS Analyst, GAIA Financial Analyst, ATLAS Macro &amp; Policy Analyst</td><td>GitHub Copilot</td><td>Reasoning-heavy, multi-step work that produces Word and Excel files; skills, memory and a native code interpreter. Billed in Copilot Credits.</td></tr>
-        <tr><td>ARGUS</td><td>Extraction, saving, data sync, monitoring, alerts: WF-01 to WF-07 and ARGUS Sentinel</td><td>Standard</td><td>Writes to the ARGUS Register, scheduled unattended runs and proactive Teams alerts, which the GitHub Copilot harness doesn't support.</td></tr>
-        <tr><td>SNAP</td><td>The whole flow: intake, confirmation, enrichment, routing, approvals, Nota and Surat</td><td>Standard</td><td>A fixed transaction with set fields, fixed rules and approvals: every application must follow the same audited route.</td></tr>
+        <tr><td>ARGUS</td><td>Analysis (steps 1–3): ARGUS Analyst, GAIA Financial Analyst, ATLAS Macro &amp; Policy Analyst, with workflows WF-01 and WF-02 as their tools</td><td>GitHub Copilot</td><td>Reasoning-heavy, multi-step work that produces Word and Excel files; skills, memory and a native code interpreter. Billed in Copilot Credits.</td></tr>
+        <tr><td>ARGUS</td><td>Data sync, monitoring, alerts: agent flows AF-01 to AF-05 and ARGUS Sentinel</td><td>Standard</td><td>Scheduled, unattended runs with deterministic rules (agent flows) and proactive Teams alerts, which the GitHub Copilot harness doesn't support.</td></tr>
+        <tr><td>SNAP</td><td>The whole flow: SNAP Intake Agent and agent flows AF-01 to AF-06 — intake, confirmation, enrichment, routing, approvals, Nota and Surat</td><td>Standard</td><td>A fixed transaction with set fields, fixed rules and approvals: every application must follow the same audited route.</td></tr>
       </tbody>
     </table></div>
     <div class="callout key"><span class="tag">Rule of thumb</span>
-      <p>Use the <strong>standard harness</strong> for work that must run the same way every time, run on a schedule, write records or push Teams alerts. Use the <strong>GitHub Copilot harness</strong> for reasoning-heavy, multi-step analysis where the agent plans its own steps and people review the result. When a use case needs both, the two halves join through workflows used as tools and a shared Dataverse register.</p>
+      <p>Use the <strong>standard harness</strong> for work that must run the same way every time, run on a schedule, write records or push Teams alerts. Use the <strong>GitHub Copilot harness</strong> for reasoning-heavy, multi-step analysis where the agent plans its own steps and people review the result. GitHub Copilot harness agents use <strong>workflows</strong> as tools; standard harness agents use <strong>agent flows</strong>. When a use case needs both harnesses, the two halves meet through a shared Dataverse register.</p>
     </div>
   </section>
 
