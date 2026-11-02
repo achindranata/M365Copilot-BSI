@@ -922,12 +922,62 @@
   .sidenav-title.next { margin-block-start: 1.3rem; }
   .uc-go { display: flex; flex-wrap: wrap; gap: .7rem; margin-block: .4rem 1.2rem; }
   .table-wrap td a { font-weight: 600; }
+  /* ---------- diagram expand / full screen ---------- */
+  .dg-wrap { position: relative; }
+  .dg-bar { display: flex; justify-content: flex-end; gap: .5rem; margin: .1rem 0 .45rem; }
+  .dg-btn {
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .38rem .95rem; border-radius: 999px; cursor: pointer;
+    background: var(--accent-fill); color: #fff; border: 1px solid transparent;
+    font: 600 .82rem/1.2 var(--font); letter-spacing: -.005em;
+    box-shadow: 0 6px 18px rgba(0,163,157,.22);
+  }
+  .dg-btn:hover { background: var(--accent-deep); }
+  .dg-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .dg-btn.ghost { background: var(--surface); color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 35%, transparent); box-shadow: none; }
+  .dg-btn.ghost:hover { background: var(--accent-soft); }
+  .dg-btn .ic { font-size: .95rem; line-height: 1; }
+  .dg-btn.only-full { display: none; }
+  .dg-wrap:fullscreen, .dg-wrap.dg-max {
+    background: var(--surface); padding: 14px 18px 18px; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .dg-wrap.dg-max { position: fixed; inset: 0; z-index: 1000; }
+  .dg-wrap:fullscreen .dg-bar, .dg-wrap.dg-max .dg-bar { margin-block-end: .6rem; }
+  .dg-wrap:fullscreen .sa-scroll, .dg-wrap.dg-max .sa-scroll { flex: 1; overflow: auto; box-shadow: none; }
+  .dg-wrap:fullscreen .dg-btn.only-full, .dg-wrap.dg-max .dg-btn.only-full { display: inline-flex; }
+  .dg-title { margin-inline-end: auto; align-self: center; font-weight: 600; color: var(--accent-deep); font-size: .9rem; display: none; }
+  .dg-wrap:fullscreen .dg-title, .dg-wrap.dg-max .dg-title { display: block; }
+  @media print { .dg-bar { display: none !important; } }
+  /* ---------- collapsible side pane ---------- */
+  .nav-toggle { display: none; }
+  @media (min-width: 1080px) {
+    .nav-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      position: fixed; z-index: 30; inset-block-start: 1rem; inset-inline-start: 14.2rem;
+      width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer;
+      background: var(--surface); color: var(--accent-deep);
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      box-shadow: var(--pill-shadow); font: 700 1rem/1 var(--font);
+      transition: inset-inline-start .25s ease, background .2s ease;
+    }
+    .nav-toggle:hover { background: var(--accent-soft); }
+    .nav-toggle:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .sidenav { transition: transform .25s ease, visibility .25s; }
+    body { transition: padding-inline-start .25s ease; }
+    .sheet { transition: max-width .25s ease; }
+    body.nav-collapsed { padding-inline-start: 4rem; }
+    body.nav-collapsed .sidenav { transform: translateX(-100%); visibility: hidden; }
+    body.nav-collapsed .nav-toggle { inset-inline-start: 1rem; }
+    body.nav-collapsed .sheet { max-width: 92rem; }
+  }
+  @media print { .nav-toggle { display: none !important; } }
 
 </style>
 </head>
 <body>
+<button type="button" class="nav-toggle" aria-controls="contents-pane" aria-expanded="true" aria-label="Hide contents pane" title="Hide contents">«</button>
 <div class="sheet">
-  <nav class="sidenav" aria-label="Contents">
+  <nav class="sidenav" id="contents-pane" aria-label="Contents">
 <p class="sidenav-title">AI Squad 5</p><ol><li><a href="https://achindranata.github.io/M365Copilot-BSI/AISquad5/" aria-current="page"><span class="num">⌂</span>Overview</a></li><li><a href="https://achindranata.github.io/M365Copilot-BSI/AISquad5/Argus/"><span class="num">A</span>ARGUS</a></li><li><a href="https://achindranata.github.io/M365Copilot-BSI/AISquad5/SNAP/"><span class="num">S</span>SNAP</a></li></ol>
 <p class="sidenav-title next">On this page</p><ol><li><a href="#s1"><span class="num">1</span>Use cases in AI Squad 5</a></li><li><a href="#s2"><span class="num">2</span>Harness choice at a glance</a></li><li><a href="#s3"><span class="num">3</span>How to read each use case page</a></li><li class="sub"><a href="#s3-1"><span class="num">3.1</span>Diagram legend</a></li></ol></nav>
   <header class="cover">
@@ -987,8 +1037,8 @@
   <section id="s3">
     <div class="sec-head"><span class="badge">Section 3</span><h2 class="sec-title">How to read each use case page</h2></div>
     <ol class="ladder">
-      <li><b>Section 1 — Understanding of the use case</b>What BSI shared, the use case steps and requirements as a diagram (or the existing mainflow), pain points, the reported impact, and the assumptions and open questions.</li>
-      <li><b>Section 2 — Solution architecture (Target)</b>The proposed design as a diagram, a numbered walkthrough that matches the arrows, why this design and harness, and the guardrails.</li>
+      <li><b>Section 1 — Understanding of the use case and requirements</b>1.1 Description · 1.2 Use case profile · 1.3 Use case diagram, steps and requirements · 1.4 Pain points · 1.5 Requirements · 1.6 Before and after AI · 1.7 Assumptions and open questions.</li>
+      <li><b>Section 2 — Solution architecture</b>The target design as a diagram with a numbered walkthrough that matches the arrows, then 2.1 Agents, workflows, agent flows and shared assets (with why this stack and the guardrails) · 2.2 Today vs target · 2.3 Assumptions and to be verified.</li>
     </ol>
     <h3 id="s3-1">Diagram legend</h3>
     <div class="sa-arch"><div class="sa-scroll" style="padding:.2rem 0 .8rem"><div class="sa-legend" style="border-top:0">
@@ -1016,5 +1066,78 @@
     Bank Syariah Indonesia | AI Squad 5 — Use Cases | Rahasia - Internal
   </footer>
 </div>
+<script>
+(function () {
+  var frames = document.querySelectorAll('.sa-scroll');
+  frames.forEach(function (sc) {
+    if (!sc.querySelector('.sa-canvas')) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'dg-wrap';
+    sc.parentNode.insertBefore(wrap, sc);
+    var bar = document.createElement('div');
+    bar.className = 'dg-bar';
+    var sec = sc.closest('section');
+    var h = sec ? sec.querySelector('.sec-title') : null;
+    var title = document.createElement('span');
+    title.className = 'dg-title';
+    title.textContent = h ? h.textContent : 'Diagram';
+    var fit = document.createElement('button');
+    fit.type = 'button'; fit.className = 'dg-btn ghost only-full';
+    var full = document.createElement('button');
+    full.type = 'button'; full.className = 'dg-btn';
+    bar.appendChild(title); bar.appendChild(fit); bar.appendChild(full);
+    wrap.appendChild(bar); wrap.appendChild(sc);
+    var frame = sc.querySelector('.sa-frame');
+    var fitted = true;
+    function isFull() { return document.fullscreenElement === wrap || wrap.classList.contains('dg-max'); }
+    function applyZoom() {
+      if (!frame) return;
+      if (isFull() && fitted) {
+        var w = parseFloat(frame.style.width) || frame.offsetWidth || 1;
+        frame.style.zoom = Math.min(2, Math.max(0.3, (sc.clientWidth - 4) / w));
+      } else { frame.style.zoom = ''; }
+    }
+    function label() {
+      var on = isFull();
+      full.innerHTML = on ? '<span class="ic" aria-hidden="true">✕</span>Exit full screen' : '<span class="ic" aria-hidden="true">⤢</span>Expand diagram';
+      full.setAttribute('aria-label', on ? 'Exit full screen' : 'Expand diagram to full screen');
+      fit.innerHTML = fitted ? '<span class="ic" aria-hidden="true">1:1</span>Actual size' : '<span class="ic" aria-hidden="true">↔</span>Fit to width';
+      applyZoom();
+    }
+    function maxOn() { wrap.classList.add('dg-max'); document.body.style.overflow = 'hidden'; label(); }
+    function maxOff() { wrap.classList.remove('dg-max'); document.body.style.overflow = ''; label(); }
+    full.addEventListener('click', function () {
+      if (isFull()) {
+        if (document.fullscreenElement === wrap) { document.exitFullscreen(); } else { maxOff(); }
+      } else {
+        fitted = true;
+        if (wrap.requestFullscreen) { wrap.requestFullscreen().catch(maxOn); } else { maxOn(); }
+      }
+    });
+    fit.addEventListener('click', function () { fitted = !fitted; label(); });
+    document.addEventListener('fullscreenchange', label);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && wrap.classList.contains('dg-max')) { maxOff(); } });
+    window.addEventListener('resize', applyZoom);
+    label();
+  });
+})();
+(function () {
+  var btn = document.querySelector('.nav-toggle');
+  if (!btn) return;
+  var KEY = 'aisquad5-nav-collapsed';
+  function set(c) {
+    document.body.classList.toggle('nav-collapsed', c);
+    btn.setAttribute('aria-expanded', c ? 'false' : 'true');
+    btn.setAttribute('aria-label', c ? 'Show contents pane' : 'Hide contents pane');
+    btn.title = c ? 'Show contents' : 'Hide contents';
+    btn.textContent = c ? '»' : '«';
+    try { localStorage.setItem(KEY, c ? '1' : '0'); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  set(saved === '1');
+  btn.addEventListener('click', function () { set(!document.body.classList.contains('nav-collapsed')); });
+})();
+</script>
 </body>
 </html>
